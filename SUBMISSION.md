@@ -283,19 +283,25 @@ This approach makes the solution more flexible and reliable.
 
 ### What I changed from Part A while coding
 
-<!-- what changed in your plan, and why. "None" is an answer too. -->
+During implementation, I created two Python tools: `lookup` and `calculate`, in `tools_hw4.py`. I added input validation and safe arithmetic using Python's `ast` module. I also created automated tests and implemented three strategies to compare their accuracy, time, and token usage.
 
 ### B2 — Tests
 
-```text
-<!-- pytest output -->
-```
+I created two test files: `test_lookup.py` and `test_calculate.py`.
+
+I used `pytest` to check the tools. All **14 tests passed**.
+
+The tests check valid inputs, incorrect inputs, and error handling. The calculator safely evaluates arithmetic expressions without executing arbitrary Python code.
 
 ### B3 — The loop
 
-- Round limit, and why:
-- Where the logs are:
-- Real Q-09 conversation compared with my A3 version, what is different:
+**Round limit:** I used a limited number of tool interaction rounds to prevent infinite loops and unnecessary tool calls. The exact configured limit should be confirmed from the notebook.
+
+**Where the logs are:** All experimental results are saved in the `outputs/` folder. The logs contain question IDs, answers, token usage, execution time, and tool-call arguments and results.
+
+**Real Q-09 conversation compared with my A3 version:** In Part A, I manually planned seven tool calls: four `lookup` calls and three `calculate` calls. In the actual implementation, the model selected tool calls dynamically rather than following a fixed handwritten sequence. Both approaches aimed to compare the 2025 population densities of Brightwater and Millbrook.
+
+**Limitation:** Individual tool-call durations and explicit round identifiers were not consistently recorded in the saved logs.
 
 ### B4 — Three strategies
 
@@ -418,35 +424,30 @@ I am confident about the observed results for these runs, but less confident tha
 
 ### Final questions
 
-**1. What did the three strategies show?**
+**1. When the model sends a `tool_calls` message, what has actually run so far?**
 
-The three approaches demonstrated a trade-off between accuracy, time, and resource consumption. S2 was the most accurate, S1 was efficient and nearly as accurate, and S3 demonstrated both the benefits and the risks of tool use.
+When the model sends a `tool_calls` message, it has only requested a tool execution. The tool has not run yet. My Python loop reads the request, executes the appropriate function, and returns the result to the model.
 
-**2. Which strategy performed best?**
+**2. Why does `arguments` arrive as a string, and what goes wrong if you pass it straight into your function?**
 
-S2 achieved the best observed accuracy: 20 correct answers out of 20 in both runs. However, it also consumed the most tokens and execution time.
+The arguments arrive as a JSON-formatted string because they are generated as part of the model's response. My code must parse the string using `json.loads()` and validate the inputs. Passing the raw string directly may cause errors because the function expects named parameters.
 
-**3. How large was the tool definition?**
+**3. How many tokens do your two tool definitions add to every S3 request? Measure it.**
 
-The tool definition was measured at approximately 269 tokens using the `o200k_base` tokenizer. The exact count depends on the serialized definition and tokenizer.
+My two tool definitions add approximately **269 tokens**, measured using the `o200k_base` tokenizer. These definitions are included in S3 requests, so they contribute to input-token usage.
 
-**4. How did I estimate cost?**
+**4. How much more did S2 cost than S1? Give the number from your table and explain it.**
 
-I multiplied input and output token counts by assumed per-million-token prices and summed the two components. The estimates are for comparison only and should not be interpreted as verified API charges.
+In Run 1, S2 cost approximately **$0.077764**, while S1 cost **$0.016353**. The difference was **$0.061411**, meaning S2 cost about **4.76 times as much**. This happened because S2 generated five samples per question instead of one.
 
-**5. What information was recorded in the logs?**
+**5. Which question needed the most rounds in S3, and why?**
 
-The saved results include question identifiers, questions, answers, token counts, total execution time, and, for tool-based runs, tool names, arguments, and results. The logs do not consistently contain individual tool-call duration or explicit round numbers.
+In Run 1, Q-11 and Q-20 each required **10 tool calls**, the highest recorded number. These questions involved multiple information-retrieval and calculation steps. However, the logs record tool calls rather than explicit interaction-round counts, so the exact number of rounds cannot be confirmed from these records.
 
-**6. Why is voting expensive?**
+**6. What would you change in `lookup` if there were 100,000 documents?**
 
-S2 generated five independent samples for each question. This required repeated model output and significantly more input and output tokens than a single direct answer.
+I would add a search index instead of scanning all documents for every request. I would also use metadata filters, retrieve only relevant passages, and return source IDs. This would make lookup faster and more scalable.
 
-**7. What are the main limitations?**
+**7. What stops your `calculate` from running dangerous code? Could the model still make it misbehave?**
 
-The study uses a small question set, only two runs, one corpus, and estimated costs. The tool-assisted implementation also has unresolved retrieval and unit-handling errors. These limitations restrict generalization.
-
-**8. What would I improve next?**
-
-I would improve numerical answer parsing, verify units before calculations, validate retrieved sources, record the duration and round number of every tool call, and test all three strategies on a larger and more diverse question set.
-
+My calculator uses Python's `ast` module and allows only selected arithmetic operations. It rejects function calls, attribute access, and dangerous expressions instead of executing arbitrary Python code. However, the model can still provide an incorrect formula or wrong units, so the numerical
