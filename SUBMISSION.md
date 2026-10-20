@@ -323,9 +323,11 @@ The tests covered normal calculations, corrected data, invalid inputs, division 
 
 ### B3 — The loop
 
-- **Round limit, and why:** I used a bounded tool-calling loop to prevent infinite calls, excessive API costs, and long execution times. The exact limit should be confirmed from the notebook.
+
+- **Round limit, and why:** I set a maximum of 20 model interaction rounds per question using `for step in range(20)`. This prevents infinite tool-calling loops, excessive API costs, and long execution times. If the model does not finish within 20 rounds, the function returns `"ERROR: Tool calling limit reached"`.
 - **Where the logs are:** The logs are stored in the `results/` folder as JSON files. These include S1, S2, and S3 results from both runs, accuracy summaries, and the final comparison table.
-- **Real Q-09 conversation compared with my A3 version, what is different:** In Part A, I planned four `lookup` calls and three `calculate` calls. In the actual S3 experiment, the final answer was also Millbrook, with a difference of approximately 0.56 residents/km², which rounds to 0.6. The exact tool-call sequence still needs to be checked against the saved trace.
+- **Real Q-09 conversation compared with my A3 version, what is different:** The real S3 conversation used 7 tool calls: 4 `lookup` calls and 3 `calculate` calls, exactly as planned in Part A. The model retrieved the population and area of Brightwater and Millbrook, calculated their population densities, and compared them. The final answer was Millbrook, with a difference of 0.56 residents/km². In my handwritten plan, I rounded the difference to 0.6 residents/km². The real model also used the calculated density values directly in its final subtraction. Both approaches selected the same district.
+
 
 
 
@@ -382,65 +384,78 @@ An answer is correct when the selected district or yes/no conclusion matches the
 
 ## Part C — Explain and choose (Hard)
 
+
+
 ### C1 — Does the tool description matter?
 
-The tool descriptions explain which data the model should retrieve, how to handle corrections, and when to use arithmetic.
+I tested five questions (Q-01, Q-05, Q-08, Q-09, and Q-17) using two versions of tool descriptions.
 
-A detailed description may help the model select the correct fields and avoid archived data.
+The first version used detailed descriptions explaining how to retrieve district information and perform calculations. The second version used vague descriptions: "Find information." for `lookup` and "Do calculations." for `calculate`.
 
-To measure the effect, the same question must be tested with detailed and vague tool descriptions while keeping the other settings unchanged.
+I kept the same model, questions, tool names, parameters, and Python functions. Only the descriptions were changed.
 
 | Question | Calls (your description) | Calls (vague) | Answer (yours) | Answer (vague) |
-|---|---:|---:|---|---|
-| Q-09 | To verify | Not tested | Millbrook, 0.6 residents/km² | Not tested |
+|---|---|---|---|---|
+| Q-01 | 7 | 7 | Ossbridge, 4.57 (correct) | Ossbridge, 4.57 (correct) |
+| Q-05 | 7 | 7 | Coldharbour, 14,235.31 (correct) | Coldharbour, 14,235 (less precise) |
+| Q-08 | 8 | 5 | No final numerical answer | Brightwater, 1.064 million tenge (wrong) |
+| Q-09 | 7 | 7 | Millbrook, 0.56 (correct) | Millbrook, 0.56 (correct) |
+| Q-17 | 5 | 8 | Water volume instead of money (wrong) | Harrowfield, 884.46 tenge/resident (correct) |
 
-The vague-description experiment has not yet been completed, so I cannot claim a measured improvement.
+**Results and explanation:**
+
+For Q-01 and Q-09, both descriptions produced the same answers and the same number of tool calls.
+
+For Q-05, both versions selected Coldharbour, but the vague version reported a less precise number.
+
+For Q-08, the detailed version made 8 tool calls but could not provide a final numerical answer. The vague version made only 5 calls and produced an incorrect result.
+
+For Q-17, the detailed version made 5 calls and answered using water volume instead of money. The vague version made 8 calls and correctly calculated 884.46 tenge per resident.
+
+**Conclusion:**
+
+Tool descriptions affected the results for some questions. However, the detailed descriptions were not always better. In Q-17, the vague version produced a better answer.
+
+This experiment suggests that tool descriptions can influence model behaviour, but five questions are not enough to prove which description is generally better.
+
+
 
 ### C2 — Three mistakes explained
 
-**Mistake 1 — Missing data in S3 (Q-08, Run 1)**
+**Mistake 1 — Numerical error in S1 (Q-15, Run 1)**
 
-S3 could not calculate the household water cost because the original `lookup` tool did not expose the water tariff.
+In Run 1, S1 reported 17.6 instead of the expected value of 17.61.
 
-The tariff was available in document NR-15, but the tool could not retrieve it.
+The model had access to the full document collection, but its final numerical answer was not precise enough.
 
-I improved the tool by adding the `water_tariff_2025` field.
+This shows that providing all the necessary information does not guarantee accurate numerical reporting.
 
-This shows that a model can fail when the tool does not provide all necessary information.
+**Mistake 2 — Most expensive question in S2 (Q-20, Run 1)**
 
-**Mistake 2 — Unit conversion error in S3 (Q-08, Run 2)**
+S2 answered all 20 questions correctly, so I selected its most expensive question, Q-20.
 
-S3 reported a difference of 72,456.15 million tenge.
+The model generated five answers. All five selected Ashgrove and calculated 2993.34 tenge per resident.
 
-The correct result was 72.46 million tenge.
+The five samples used 11,660 input tokens and 3,289 output tokens. The estimated cost was $0.006279.
 
-Correct calculation:
+Voting produced a consistent answer, but it required five model calls instead of one. This explains why S2 was more expensive than S1.
+
+**Mistake 3 — Missing tariff and unit conversion in S3 (Q-08)**
+
+In Run 1, S3 could not calculate the household water cost because the `lookup` tool did not expose the water tariff from document NR-15.
+
+I later added the `water_tariff_2025` field to the tool.
+
+In Run 2, S3 produced a numerical answer but reported 72,456.15 million tenge instead of 72.46 million tenge.
+
+The correct calculation is:
 
 (3315 - 2806) × 1000 × 142.35 = 72,456,150 tenge
 
 72,456,150 / 1,000,000 = 72.45615 million tenge
 
-S3's reported result was 1,000 times too large.
+This shows that tools can provide useful information, but the model can still make mistakes when converting units.
 
-This error shows the importance of checking measurement units.
-
-**Mistake 3 — Incorrect quantity and scale in S3 (Q-17)**
-
-In the first run, S3 calculated a difference in water volume instead of money.
-
-In the second run, it reported approximately 884,457.16 tenge per resident.
-
-The correct difference was approximately 884.46 tenge per resident, rounded to 884.
-
-This demonstrates that retrieving the correct data is not enough. The model must also use the correct formula and units.
-
-**Additional errors:**
-
-In Q-15, S1 and S3 reported 17.6 instead of 17.61 in Run 1.
-
-In Run 2, S1 corrected this error, but S3 repeated it.
-
-S1 also made a numerical reporting error in Q-05 of Run 2.
 
 ### C3 — Which strategy I would use, and what would change it
 
@@ -476,15 +491,42 @@ There are also limitations in the experiment:
 
 For a more reliable comparison, I would test more questions, repeat each strategy more times, use consistent tool definitions, and save complete tool-call logs.
 
+
 ### Final questions
 
-The original template contains eight numbered placeholders without question text. These questions must be added from the original assignment before submission.
+**1. When the model sends a `tool_calls` message, what has actually run so far?**
 
-1. [Original question 1 needed]
-2. [Original question 2 needed]
-3. [Original question 3 needed]
-4. [Original question 4 needed]
-5. [Original question 5 needed]
-6. [Original question 6 needed]
-7. [Original question 7 needed]
-8. [Original question 8 needed]
+The model has only requested a tool call. The Python function has not run yet. My code must read the request, execute the tool, and return the result to the model.
+
+**2. Why does `arguments` arrive as a string, and what goes wrong if you pass it straight into your function?**
+
+The API sends tool arguments as a JSON-formatted string. My Python code must parse and validate it before calling the function. Passing the string directly may cause errors because the function expects named parameters with specific types.
+
+
+**3. How many tokens do your two tool definitions add to every S3 request? Measure it.**
+
+I measured the two tool definitions using the `o200k_base` tokenizer. Their serialized JSON representation contains 269 tokens. This is an estimate of the tool-definition overhead per S3 request, not an exact measurement of API billing tokens.
+
+
+**4. How much more did S2 cost than S1? Give the number from your table and explain it.**
+
+Across both runs, S2 cost approximately $0.155019, while S1 cost approximately $0.032981. S2 was about 4.70 times more expensive, a difference of approximately $0.122038. This happened because S2 generated five answers for every question instead of one.
+
+
+**5. Which question needed the most rounds in S3, and why?**
+
+In Run 1, Q-11 and Q-20 had the highest number of tool calls, with 10 calls each. These questions required multiple data lookups and calculations. However, my saved logs do not record model interaction rounds separately, so I cannot determine which question needed the most rounds.
+
+
+**6. What would you change in `lookup` if there were 100,000 documents?**
+
+I would not scan every document for every request. Instead, I would build an index or database to retrieve relevant documents faster. I would also keep source identifiers and return only a small amount of relevant information.
+
+**7. What stops your `calculate` from running dangerous code? Could the model still make it misbehave?**
+
+My `calculate` tool uses Python's `ast` module and allows only approved arithmetic operations. It rejects function calls, attribute access, and dangerous expressions such as `__import__('os')`. However, the model can still send invalid expressions or request mathematically incorrect calculations, so validation is still necessary.
+
+**8. For which kind of question did tools help most, and for which did they not help at all?**
+
+Tools were useful for retrieving district data and performing arithmetic calculations, especially for population density and budget comparisons. However, tools did not prevent mistakes involving units or the interpretation of the question. For example, S3 answered Q-17 using water volume instead of money in Run 1.
+
