@@ -40,6 +40,7 @@ The output of each step becomes the input of the next step. The model decides wh
 
 #### `lookup`
 
+```json
 
 {
   "type": "function",
@@ -63,7 +64,7 @@ The output of each step becomes the input of the next step. The model decides wh
     }
   }
 }
-
+```
 
 | Case | What the tool returns |
 |---|---|
@@ -77,7 +78,7 @@ The output of each step becomes the input of the next step. The model decides wh
 **Worst thing it could do with strange or dangerous input:** The lookup tool could return incorrect data if a district name is ambiguous or an archived profile is used by mistake. To prevent this, it validates inputs, checks exact district names, ignores archived profiles, and applies correction notices. It only reads local data files and does not execute user input as code.
 
 #### `calculate`
-
+```json
 
 {
   "type": "function",
@@ -97,7 +98,7 @@ The output of each step becomes the input of the next step. The model decides wh
     }
   }
 }
-
+```
 
 | Case | What the tool returns |
 |---|---|
@@ -111,7 +112,7 @@ The output of each step becomes the input of the next step. The model decides wh
 **Worst thing it could do with strange or dangerous input:** The worst risk is executing dangerous Python code or causing the program to freeze with extremely large calculations. To prevent this, I will use the ast module instead of eval or exec. The tool will allow only basic arithmetic operators and will limit expression size, number size, and calculation complexity.
 
 ### A3 — Q-09 by hand
-
+```json
 
 [
   {
@@ -230,7 +231,7 @@ The output of each step becomes the input of the next step. The model decides wh
   }
 ]
 
-
+```
 **My arithmetic:**
 **Formula:**
 
