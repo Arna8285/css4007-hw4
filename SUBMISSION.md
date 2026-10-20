@@ -287,11 +287,35 @@ During implementation, I created two Python tools: `lookup` and `calculate`, in 
 
 ### B2 — Tests
 
-I created two test files: `test_lookup.py` and `test_calculate.py`.
+I created two test files: `test_lookup.py` and `test_calculate.py`. I ran the tests using `pytest` on Windows with Python 3.13.2.
 
-I used `pytest` to check the tools. All **14 tests passed**.
+**Pytest output:**
 
-The tests check valid inputs, incorrect inputs, and error handling. The calculator safely evaluates arithmetic expressions without executing arbitrary Python code.
+```text
+============================= test session starts =============================
+platform win32 -- Python 3.13.2, pytest-9.1.1, pluggy-1.7.0
+collected 14 items
+
+test_lookup.py::test_population PASSED
+test_lookup.py::test_corrected_area PASSED
+test_lookup.py::test_water_conversion PASSED
+test_lookup.py::test_budget PASSED
+test_lookup.py::test_correct_source PASSED
+test_lookup.py::test_unknown_district PASSED
+test_lookup.py::test_unknown_field PASSED
+
+test_calculate.py::test_addition PASSED
+test_calculate.py::test_multiplication PASSED
+test_calculate.py::test_division PASSED
+test_calculate.py::test_negative_numbers PASSED
+test_calculate.py::test_zero_division PASSED
+test_calculate.py::test_dangerous_input PASSED
+test_calculate.py::test_unsupported_operation PASSED
+
+============================= 14 passed in 0.03s ==============================
+```
+
+All 14 tests passed successfully. The tests verify correct lookup results, data corrections, unit conversion, arithmetic operations, and error handling.
 
 ### B3 — The loop
 
