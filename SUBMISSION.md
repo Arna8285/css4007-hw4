@@ -39,7 +39,7 @@ The output of each step becomes the input of the next step. The model decides wh
 ### A2 — The two tools
 
 #### `lookup`
-
+```json
 
 {
   "type": "function",
@@ -63,7 +63,7 @@ The output of each step becomes the input of the next step. The model decides wh
     }
   }
 }
-
+```
 
 | Case | What the tool returns |
 |---|---|
@@ -78,7 +78,7 @@ The output of each step becomes the input of the next step. The model decides wh
 
 #### `calculate`
 
-
+```json
 {
   "type": "function",
   "function": {
@@ -97,7 +97,7 @@ The output of each step becomes the input of the next step. The model decides wh
     }
   }
 }
-
+```
 
 | Case | What the tool returns |
 |---|---|
@@ -112,6 +112,7 @@ The output of each step becomes the input of the next step. The model decides wh
 
 ### A3 — Q-09 by hand
 
+```json
 
 [
   {
@@ -229,7 +230,7 @@ The output of each step becomes the input of the next step. The model decides wh
     "content": "ANSWER: Millbrook | 0.6"
   }
 ]
-
+```
 
 **My arithmetic:**
 **Formula:**
