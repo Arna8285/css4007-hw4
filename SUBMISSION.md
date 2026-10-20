@@ -328,32 +328,29 @@ The tests covered normal calculations, corrected data, invalid inputs, division 
 - **Real Q-09 conversation compared with my A3 version, what is different:** In Part A, I planned four `lookup` calls and three `calculate` calls. In the actual S3 experiment, the final answer was also Millbrook, with a difference of approximately 0.56 residents/km², which rounds to 0.6. The exact tool-call sequence still needs to be checked against the saved trace.
 
 
+
 ### B4 — Three strategies
 
 **What I kept the same:**
 
-- Model: `gpt-5.6-luna`
-- Dataset: the same 20 questions and the same reference answers.
-- Evaluation: the same correctness criteria for all three strategies.
-- Number of runs: two runs per strategy.
-- S1 used direct answering.
-- S2 used five answer samples and majority voting (`k = 5`).
-- S3 used the `lookup` and `calculate` tools.
+I used the same model (`gpt-5.6-luna`), dataset of 20 questions, reference answers, and evaluation criteria for all three strategies. Each strategy was tested twice.
+
+S1 answered questions directly using the full corpus. S2 generated five independent answers per question and selected the most frequent answer (k = 5). S3 used the `lookup` and `calculate` tools.
 
 **My rule for a correct answer** (written before the first full run):
 
-An answer is correct if the selected district or yes/no answer matches the reference answer and the numerical result matches the expected value at the required decimal precision. The units must also be correct. Answers with incorrect values, units, or conclusions are counted as wrong.
+An answer is correct when the selected district or yes/no conclusion matches the reference answer, the numerical result matches the required precision, and the units are correct. Incorrect or missing values are counted as wrong.
 
 | Run | Strategy | Correct /20 | Unanswered | Input tokens | Output tokens | Median seconds per question | Total seconds | Cost ($) |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | S1 direct | 19 | 0* | 44,982* | 6,129* | N/A | 97.47 | 0.032981* |
-| 1 | S2 think and vote (k = 5) | 20 | 0* | 232,500* | 25,?* | N/A | 396.57 | 0.155018* |
-| 1 | S3 tools | 17 | 0* | 39,475 | 4,527 | N/A | 121.54 | 0.027484* |
-| 2 | S1 direct | 19 | 0* | 45,000* | 6,340* | N/A | 84.73 | 0.032981* |
-| 2 | S2 think and vote (k = 5) | 20 | 0* | 232,000* | 26,129* | N/A | 400.37 | 0.155018* |
-| 2 | S3 tools | 17 | 0* | 42,390 | 4,732 | N/A | 116.19 | 0.027484* |
+| 1 | S1 direct | 19 | 0 | 44980 | 6131 | 4.43 | 97.47 | 0.016353 |
+| 1 | S2 think and vote (k = 5) | 20 | 0 | 232500 | 26053 | 17.88 | 396.57 | 0.077764 |
+| 1 | S3 tools | 17 | 0 | 39475 | 4527 | 6.21 | 121.54 | 0.013327 |
+| 2 | S1 direct | 19 | 0 | 44980 | 6360 | 3.91 | 84.73 | 0.016628 |
+| 2 | S2 think and vote (k = 5) | 20 | 0 | 232500 | 25629 | 19.45 | 400.37 | 0.077255 |
+| 2 | S3 tools | 17 | 0 | 42390 | 4732 | 6.10 | 116.19 | 0.014156 |
 
-\* Values marked with an asterisk need verification against the saved logs. The total token counts previously recorded for each run should be used to obtain the exact input and output token counts. The costs above are estimates based on average token usage, not verified per-run billing. Median response times have not yet been calculated.
+**Cost note:** Costs are estimates calculated using assumed prices of $0.20 per million input tokens and $1.20 per million output tokens. They are not verified API billing amounts.
 
 **Per question (run 1):**
 
