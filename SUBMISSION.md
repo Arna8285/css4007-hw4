@@ -327,54 +327,35 @@ The tests covered normal calculations, corrected data, invalid inputs, division 
 - **Where the logs are:** The logs are stored in the `results/` folder as JSON files. These include S1, S2, and S3 results from both runs, accuracy summaries, and the final comparison table.
 - **Real Q-09 conversation compared with my A3 version, what is different:** In Part A, I planned four `lookup` calls and three `calculate` calls. In the actual S3 experiment, the final answer was also Millbrook, with a difference of approximately 0.56 residents/km², which rounds to 0.6. The exact tool-call sequence still needs to be checked against the saved trace.
 
+
 ### B4 — Three strategies
 
 **What I kept the same:**
 
-All strategies answered the same 20 questions using the same Nine Rivers dataset and reference answers.
+- Model: `gpt-5.6-luna`
+- Dataset: the same 20 questions and the same reference answers.
+- Evaluation: the same correctness criteria for all three strategies.
+- Number of runs: two runs per strategy.
+- S1 used direct answering.
+- S2 used five answer samples and majority voting (`k = 5`).
+- S3 used the `lookup` and `calculate` tools.
 
-I used the `gpt-5.6-luna` model and performed two runs for each strategy.
+**My rule for a correct answer** (written before the first full run):
 
-- **S1 Direct:** The model received the corpus and answered directly.
-- **S2 Think and Vote:** The model generated five independent answers and selected the most frequent result (k = 5).
-- **S3 Tools:** The model used `lookup` and `calculate` to retrieve data and perform calculations.
+An answer is correct if the selected district or yes/no answer matches the reference answer and the numerical result matches the expected value at the required decimal precision. The units must also be correct. Answers with incorrect values, units, or conclusions are counted as wrong.
 
-**My rule for a correct answer:**
+| Run | Strategy | Correct /20 | Unanswered | Input tokens | Output tokens | Median seconds per question | Total seconds | Cost ($) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | S1 direct | 19 | 0* | 44,982* | 6,129* | N/A | 97.47 | 0.032981* |
+| 1 | S2 think and vote (k = 5) | 20 | 0* | 232,500* | 25,?* | N/A | 396.57 | 0.155018* |
+| 1 | S3 tools | 17 | 0* | 39,475 | 4,527 | N/A | 121.54 | 0.027484* |
+| 2 | S1 direct | 19 | 0* | 45,000* | 6,340* | N/A | 84.73 | 0.032981* |
+| 2 | S2 think and vote (k = 5) | 20 | 0* | 232,000* | 26,129* | N/A | 400.37 | 0.155018* |
+| 2 | S3 tools | 17 | 0* | 42,390 | 4,732 | N/A | 116.19 | 0.027484* |
 
-An answer is correct if the selected district or yes/no decision matches the reference answer and the numerical result matches at the required decimal precision.
+\* Values marked with an asterisk need verification against the saved logs. The total token counts previously recorded for each run should be used to obtain the exact input and output token counts. The costs above are estimates based on average token usage, not verified per-run billing. Median response times have not yet been calculated.
 
-I accepted extra precision when rounding produced the reference value. Wrong units, missing answers, and incorrect numerical values were counted as errors.
-
-### Results across two runs
-
-| Strategy | Run 1 | Run 2 | Average accuracy | Average time | Average tokens |
-|---|---:|---:|---:|---:|---:|
-| S1 Direct | 19/20 | 19/20 | 95% | 4.55 s | 2,561 |
-| S2 Voting (k=5) | 20/20 | 20/20 | 100% | 19.92 s | 12,917 |
-| S3 Tools | 17/20 | 17/20 | 85% | 5.94 s | 2,278 |
-
-### Execution time and token usage
-
-| Run | Strategy | Correct /20 | Total tokens | Total seconds |
-|---|---|---:|---:|---:|
-| 1 | S1 Direct | 19 | 51,111 | 97.47 |
-| 1 | S2 Voting | 20 | 258,553 | 396.57 |
-| 1 | S3 Tools | 17 | 44,002 | 121.54 |
-| 2 | S1 Direct | 19 | 51,340 | 84.73 |
-| 2 | S2 Voting | 20 | 258,129 | 400.37 |
-| 2 | S3 Tools | 17 | 47,122 | 116.19 |
-
-### Estimated API cost
-
-The following costs were calculated using assumed rates of $0.20 per million input tokens and $1.20 per million output tokens. These are estimates, not verified billing amounts.
-
-| Strategy | Average cost per question | Total cost (40 questions) |
-|---|---:|---:|
-| S1 Direct | $0.000825 | $0.032981 |
-| S2 Voting | $0.003875 | $0.155018 |
-| S3 Tools | $0.000687 | $0.027484 |
-
-### Per question (run 1)
+**Per question (run 1):**
 
 | Question | S1 | S2 | S3 |
 |---|:---:|:---:|:---:|
@@ -399,18 +380,8 @@ The following costs were calculated using assumed rates of $0.20 per million inp
 | Q-19 | Correct | Correct | Correct |
 | Q-20 | Correct | Correct | Correct |
 
-### Run 2 errors
-
-S1 made one error in Q-05, reporting 4,235.31 instead of 14,235.31 tenge per resident.
-
-S2 answered all 20 questions correctly.
-
-S3 made three errors:
-- Q-08: Incorrect water-cost unit conversion.
-- Q-15: Incorrect rounding precision.
-- Q-17: Incorrect water-cost scale.
-
 ---
+
 
 ## Part C — Explain and choose (Hard)
 
