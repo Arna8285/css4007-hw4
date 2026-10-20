@@ -298,69 +298,154 @@ This approach makes the solution more flexible and reliable.
 
 ### B4 — Three strategies
 
-**What I kept the same:**
+I evaluated three strategies on 20 questions, with two runs per strategy.
 
-<!-- model, temperature, k, prompts, answer format, anything else -->
+- **S1 — Direct:** the model received the corpus and answered directly.
+- **S2 — Self-consistency:** the model generated five samples and selected an answer by voting.
+- **S3 — Tool-assisted:** the model used lookup and calculate tools to find evidence and perform calculations.
 
-**My rule for a correct answer** (written before the first full run):
+#### Overall results
 
-| Run | Strategy | Correct /20 | Unanswered | Input tokens | Output tokens | Median seconds per question | Total seconds | Cost ($) |
+| Run | Strategy | Correct / 20 | Unanswered | Input tokens | Output tokens | Median seconds | Total seconds | Estimated cost ($) |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | S1 direct | | | | | | | |
-| 1 | S2 think and vote (k = ) | | | | | | | |
-| 1 | S3 tools | | | | | | | |
-| 2 | S1 direct | | | | | | | |
-| 2 | S2 think and vote (k = ) | | | | | | | |
-| 2 | S3 tools | | | | | | | |
+| 1 | S1 | 19 | 0 | 44980 | 6131 | 4.43 | 97.47 | 0.016353 |
+| 1 | S2 | 20 | 0 | 232500 | 26053 | 17.88 | 396.57 | 0.077764 |
+| 1 | S3 | 17 | 0 | 39475 | 4527 | 6.21 | 121.54 | 0.013327 |
+| 2 | S1 | 19 | 0 | 44980 | 6360 | 3.91 | 84.73 | 0.016628 |
+| 2 | S2 | 20 | 0 | 232500 | 25629 | 19.45 | 400.37 | 0.077255 |
+| 2 | S3 | 17 | 0 | 42390 | 4732 | 6.10 | 116.19 | 0.014156 |
 
-**Per question (run 1):**
+The cost figures are estimates based on assumed prices of $0.20 per million input tokens and $1.20 per million output tokens, not verified billing charges.
+
+#### Per-question accuracy — Run 1
 
 | Question | S1 | S2 | S3 |
-|---|:---:|:---:|:---:|
-| Q-01 | | | |
-| Q-02 | | | |
-| Q-03 | | | |
-| Q-04 | | | |
-| Q-05 | | | |
-| Q-06 | | | |
-| Q-07 | | | |
-| Q-08 | | | |
-| Q-09 | | | |
-| Q-10 | | | |
-| Q-11 | | | |
-| Q-12 | | | |
-| Q-13 | | | |
-| Q-14 | | | |
-| Q-15 | | | |
-| Q-16 | | | |
-| Q-17 | | | |
-| Q-18 | | | |
-| Q-19 | | | |
-| Q-20 | | | |
+|---|---|---|---|
+| Q-01 | Correct | Correct | Correct |
+| Q-02 | Correct | Correct | Correct |
+| Q-03 | Correct | Correct | Correct |
+| Q-04 | Correct | Correct | Correct |
+| Q-05 | Correct | Correct | Correct |
+| Q-06 | Correct | Correct | Correct |
+| Q-07 | Correct | Correct | Correct |
+| Q-08 | Correct | Correct | Wrong |
+| Q-09 | Correct | Correct | Correct |
+| Q-10 | Correct | Correct | Correct |
+| Q-11 | Correct | Correct | Correct |
+| Q-12 | Correct | Correct | Correct |
+| Q-13 | Correct | Correct | Correct |
+| Q-14 | Correct | Correct | Correct |
+| Q-15 | Wrong | Correct | Wrong |
+| Q-16 | Correct | Correct | Correct |
+| Q-17 | Correct | Correct | Wrong |
+| Q-18 | Correct | Correct | Correct |
+| Q-19 | Correct | Correct | Correct |
+| Q-20 | Correct | Correct | Correct |
 
----
+#### Per-question accuracy — Run 2
+
+| Question | S1 | S2 | S3 |
+|---|---|---|---|
+| Q-01 | Correct | Correct | Correct |
+| Q-02 | Correct | Correct | Correct |
+| Q-03 | Correct | Correct | Correct |
+| Q-04 | Correct | Correct | Correct |
+| Q-05 | Wrong | Correct | Correct |
+| Q-06 | Correct | Correct | Correct |
+| Q-07 | Correct | Correct | Correct |
+| Q-08 | Correct | Correct | Wrong |
+| Q-09 | Correct | Correct | Correct |
+| Q-10 | Correct | Correct | Correct |
+| Q-11 | Correct | Correct | Correct |
+| Q-12 | Correct | Correct | Correct |
+| Q-13 | Correct | Correct | Correct |
+| Q-14 | Correct | Correct | Correct |
+| Q-15 | Correct | Correct | Wrong |
+| Q-16 | Correct | Correct | Correct |
+| Q-17 | Correct | Correct | Wrong |
+| Q-18 | Correct | Correct | Correct |
+| Q-19 | Correct | Correct | Correct |
+| Q-20 | Correct | Correct | Correct |
+
+#### Interpretation
+
+S2 achieved the highest accuracy: 20/20 in both runs. However, it required substantially more tokens and time than S1 or S3. S1 achieved 19/20 in both runs and was much faster. S3 achieved 17/20 in both runs, showing that access to tools alone does not guarantee correct reasoning or unit handling.
+
+The experiment files are stored in `outputs/`, including individual strategy results, two-run accuracy summaries, the final comparison CSV, and the C1 tool-description experiment. The tool logs record arguments and results. Individual tool-call durations and explicit round identifiers were not captured in every log, which limits detailed per-call timing analysis.
 
 ## Part C — Explain and choose (Hard)
 
 ### C1 — Does the tool description matter?
 
-| Question | Calls (your description) | Calls (vague) | Answer (yours) | Answer (vague) |
+I compared my detailed tool descriptions against vague descriptions on five questions.
+
+| Question | Calls (detailed) | Calls (vague) | Detailed result | Vague result |
 |---|---:|---:|---|---|
-| | | | | |
+| Q-01 | 7 | 7 | Correct | Correct |
+| Q-05 | 7 | 7 | Correct | Correct, but less precise |
+| Q-08 | 8 | 5 | No numerical final answer | Incorrect: approximately 1.064 million |
+| Q-09 | 7 | 7 | Correct | Correct |
+| Q-17 | 5 | 8 | Incorrect unit handling | Correct: 884.46 tenge per resident |
+
+These results do not show that detailed descriptions always improve accuracy. The effect depends on the question. For Q-05, the detailed description improved precision. For Q-08, neither configuration produced a satisfactory result. For Q-17, the vague description happened to produce the correct answer while the detailed version failed.
+
+Tool descriptions influence how a model chooses and uses tools, but clear descriptions cannot eliminate arithmetic, retrieval, or unit-conversion errors.
 
 ### C2 — Three mistakes explained
 
+**S1 — Direct strategy, Q-15.** In Run 1, S1 returned an incorrect numerical result due to a precision-related error. This illustrates how direct reasoning can fail even when the relevant information is included in the prompt. In Run 2, its incorrect question was Q-05 instead, showing variation between runs.
+
+**S2 — Voting strategy, Q-20.** S2 did not make an accuracy error in either run. Therefore, I analyzed an expensive question instead. For Q-20, five samples were generated and the selected numerical answer was 2993.34 for Ashgrove. The question consumed approximately 11,660 input tokens and 3,289 output tokens, with an estimated cost of $0.006279. This shows the main disadvantage of voting: repeated generation increases cost even when the final answer is correct.
+
+**S3 — Tool-assisted strategy, Q-08.** In Run 1, the strategy failed to retrieve or apply the required tariff information correctly. In Run 2, a factor-of-1000 unit error contributed to an incorrect numerical answer. This shows that a correct calculator result is not sufficient when the expression or units supplied to the calculator are wrong.
+
 ### C3 — Which strategy I would use, and what would change it
+
+For this particular task, I would choose **S1 as the default strategy** when speed and cost matter, because it achieved 95% accuracy in both runs with much lower resource use than S2.
+
+I would choose **S2 when accuracy is the highest priority** and additional time and token costs are acceptable. It achieved 100% accuracy in both experimental runs, although this small experiment does not guarantee perfect accuracy on new questions.
+
+I would use **S3 when external lookup, auditable calculations, or large datasets make tools necessary**, but I would add validation of source selection, units, and final numerical values. Its current implementation was less accurate than the other strategies.
 
 ### C4 — How sure I can be
 
+The results provide useful evidence, but the experiment is small: only 20 questions and two runs per strategy. The questions come from one synthetic corpus and may not represent other datasets or tasks.
+
+Accuracy, timing, and token usage may vary with the model, prompts, hardware, and execution conditions. Estimated monetary costs are based on assumed token prices rather than actual billing records.
+
+I am confident about the observed results for these runs, but less confident that the same ranking will hold for every new task. More questions, repeated trials, and tests on different corpora would make the conclusions stronger.
+
 ### Final questions
 
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
+**1. What did the three strategies show?**
+
+The three approaches demonstrated a trade-off between accuracy, time, and resource consumption. S2 was the most accurate, S1 was efficient and nearly as accurate, and S3 demonstrated both the benefits and the risks of tool use.
+
+**2. Which strategy performed best?**
+
+S2 achieved the best observed accuracy: 20 correct answers out of 20 in both runs. However, it also consumed the most tokens and execution time.
+
+**3. How large was the tool definition?**
+
+The tool definition was measured at approximately 269 tokens using the `o200k_base` tokenizer. The exact count depends on the serialized definition and tokenizer.
+
+**4. How did I estimate cost?**
+
+I multiplied input and output token counts by assumed per-million-token prices and summed the two components. The estimates are for comparison only and should not be interpreted as verified API charges.
+
+**5. What information was recorded in the logs?**
+
+The saved results include question identifiers, questions, answers, token counts, total execution time, and, for tool-based runs, tool names, arguments, and results. The logs do not consistently contain individual tool-call duration or explicit round numbers.
+
+**6. Why is voting expensive?**
+
+S2 generated five independent samples for each question. This required repeated model output and significantly more input and output tokens than a single direct answer.
+
+**7. What are the main limitations?**
+
+The study uses a small question set, only two runs, one corpus, and estimated costs. The tool-assisted implementation also has unresolved retrieval and unit-handling errors. These limitations restrict generalization.
+
+**8. What would I improve next?**
+
+I would improve numerical answer parsing, verify units before calculations, validate retrieved sources, record the duration and round number of every tool call, and test all three strategies on a larger and more diverse question set.
+
