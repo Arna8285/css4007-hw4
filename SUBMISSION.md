@@ -319,7 +319,7 @@ All 14 tests passed successfully. The tests verify correct lookup results, data 
 
 ### B3 — The loop
 
-**Round limit:** I used a limited number of tool interaction rounds to prevent infinite loops and unnecessary tool calls. The exact configured limit should be confirmed from the notebook.
+**Round limit:** I set a maximum of 20 interaction rounds for the S3 tool-assisted strategy using `for step in range(20)`. This prevents infinite loops and excessive API calls. If the model does not produce a final answer within 20 rounds, the loop stops.
 
 **Where the logs are:** All experimental results are saved in the `outputs/` folder. The logs contain question IDs, answers, token usage, execution time, and tool-call arguments and results.
 
