@@ -280,65 +280,135 @@ This approach makes the solution more flexible and reliable.
 ---
 
 
+
 ## Part B — Build it and run it (Medium)
 
 ### What I changed from Part A while coding
 
-<!-- what changed in your plan, and why. "None" is an answer too. -->
+I implemented two separate Python tools: `lookup` and `calculate`.
+
+The `lookup` tool reads the local corpus, ignores archived profiles, and applies the corrected area for Brightwater (NR-16). I later added the `water_tariff_2025` field from NR-15 because it was needed for water-cost questions.
+
+The `calculate` tool uses Python's `ast` module instead of `eval` to perform arithmetic safely.
+
+I also added error handling, unit conversion, pytest tests, and JSON result logging.
 
 ### B2 — Tests
 
+I used pytest to test both tools. All 14 tests passed.
+
 ```text
-<!-- pytest output -->
+collected 14 items
+
+test_lookup.py::test_population PASSED
+test_lookup.py::test_corrected_area PASSED
+test_lookup.py::test_water_conversion PASSED
+test_lookup.py::test_budget PASSED
+test_lookup.py::test_correct_source PASSED
+test_lookup.py::test_unknown_district PASSED
+test_lookup.py::test_unknown_field PASSED
+
+test_calculate.py::test_addition PASSED
+test_calculate.py::test_multiplication PASSED
+test_calculate.py::test_division PASSED
+test_calculate.py::test_negative_numbers PASSED
+test_calculate.py::test_zero_division PASSED
+test_calculate.py::test_dangerous_input PASSED
+test_calculate.py::test_unsupported_operation PASSED
+
+============================== 14 passed in 0.04s ==============================
 ```
+
+The tests covered normal calculations, corrected data, invalid inputs, division by zero, and dangerous expressions.
 
 ### B3 — The loop
 
-- Round limit, and why:
-- Where the logs are:
-- Real Q-09 conversation compared with my A3 version, what is different:
+- **Round limit, and why:** I used a bounded tool-calling loop to prevent infinite calls, excessive API costs, and long execution times. The exact limit should be confirmed from the notebook.
+- **Where the logs are:** The logs are stored in the `results/` folder as JSON files. These include S1, S2, and S3 results from both runs, accuracy summaries, and the final comparison table.
+- **Real Q-09 conversation compared with my A3 version, what is different:** In Part A, I planned four `lookup` calls and three `calculate` calls. In the actual S3 experiment, the final answer was also Millbrook, with a difference of approximately 0.56 residents/km², which rounds to 0.6. The exact tool-call sequence still needs to be checked against the saved trace.
 
 ### B4 — Three strategies
 
 **What I kept the same:**
 
-<!-- model, temperature, k, prompts, answer format, anything else -->
+All strategies answered the same 20 questions using the same Nine Rivers dataset and reference answers.
 
-**My rule for a correct answer** (written before the first full run):
+I used the `gpt-5.6-luna` model and performed two runs for each strategy.
 
-| Run | Strategy | Correct /20 | Unanswered | Input tokens | Output tokens | Median seconds per question | Total seconds | Cost ($) |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | S1 direct | | | | | | | |
-| 1 | S2 think and vote (k = ) | | | | | | | |
-| 1 | S3 tools | | | | | | | |
-| 2 | S1 direct | | | | | | | |
-| 2 | S2 think and vote (k = ) | | | | | | | |
-| 2 | S3 tools | | | | | | | |
+- **S1 Direct:** The model received the corpus and answered directly.
+- **S2 Think and Vote:** The model generated five independent answers and selected the most frequent result (k = 5).
+- **S3 Tools:** The model used `lookup` and `calculate` to retrieve data and perform calculations.
 
-**Per question (run 1):**
+**My rule for a correct answer:**
+
+An answer is correct if the selected district or yes/no decision matches the reference answer and the numerical result matches at the required decimal precision.
+
+I accepted extra precision when rounding produced the reference value. Wrong units, missing answers, and incorrect numerical values were counted as errors.
+
+### Results across two runs
+
+| Strategy | Run 1 | Run 2 | Average accuracy | Average time | Average tokens |
+|---|---:|---:|---:|---:|---:|
+| S1 Direct | 19/20 | 19/20 | 95% | 4.55 s | 2,561 |
+| S2 Voting (k=5) | 20/20 | 20/20 | 100% | 19.92 s | 12,917 |
+| S3 Tools | 17/20 | 17/20 | 85% | 5.94 s | 2,278 |
+
+### Execution time and token usage
+
+| Run | Strategy | Correct /20 | Total tokens | Total seconds |
+|---|---|---:|---:|---:|
+| 1 | S1 Direct | 19 | 51,111 | 97.47 |
+| 1 | S2 Voting | 20 | 258,553 | 396.57 |
+| 1 | S3 Tools | 17 | 44,002 | 121.54 |
+| 2 | S1 Direct | 19 | 51,340 | 84.73 |
+| 2 | S2 Voting | 20 | 258,129 | 400.37 |
+| 2 | S3 Tools | 17 | 47,122 | 116.19 |
+
+### Estimated API cost
+
+The following costs were calculated using assumed rates of $0.20 per million input tokens and $1.20 per million output tokens. These are estimates, not verified billing amounts.
+
+| Strategy | Average cost per question | Total cost (40 questions) |
+|---|---:|---:|
+| S1 Direct | $0.000825 | $0.032981 |
+| S2 Voting | $0.003875 | $0.155018 |
+| S3 Tools | $0.000687 | $0.027484 |
+
+### Per question (run 1)
 
 | Question | S1 | S2 | S3 |
 |---|:---:|:---:|:---:|
-| Q-01 | | | |
-| Q-02 | | | |
-| Q-03 | | | |
-| Q-04 | | | |
-| Q-05 | | | |
-| Q-06 | | | |
-| Q-07 | | | |
-| Q-08 | | | |
-| Q-09 | | | |
-| Q-10 | | | |
-| Q-11 | | | |
-| Q-12 | | | |
-| Q-13 | | | |
-| Q-14 | | | |
-| Q-15 | | | |
-| Q-16 | | | |
-| Q-17 | | | |
-| Q-18 | | | |
-| Q-19 | | | |
-| Q-20 | | | |
+| Q-01 | Correct | Correct | Correct |
+| Q-02 | Correct | Correct | Correct |
+| Q-03 | Correct | Correct | Correct |
+| Q-04 | Correct | Correct | Correct |
+| Q-05 | Correct | Correct | Correct |
+| Q-06 | Correct | Correct | Correct |
+| Q-07 | Correct | Correct | Correct |
+| Q-08 | Correct | Correct | Wrong |
+| Q-09 | Correct | Correct | Correct |
+| Q-10 | Correct | Correct | Correct |
+| Q-11 | Correct | Correct | Correct |
+| Q-12 | Correct | Correct | Correct |
+| Q-13 | Correct | Correct | Correct |
+| Q-14 | Correct | Correct | Correct |
+| Q-15 | Wrong | Correct | Wrong |
+| Q-16 | Correct | Correct | Correct |
+| Q-17 | Correct | Correct | Wrong |
+| Q-18 | Correct | Correct | Correct |
+| Q-19 | Correct | Correct | Correct |
+| Q-20 | Correct | Correct | Correct |
+
+### Run 2 errors
+
+S1 made one error in Q-05, reporting 4,235.31 instead of 14,235.31 tenge per resident.
+
+S2 answered all 20 questions correctly.
+
+S3 made three errors:
+- Q-08: Incorrect water-cost unit conversion.
+- Q-15: Incorrect rounding precision.
+- Q-17: Incorrect water-cost scale.
 
 ---
 
@@ -346,23 +416,107 @@ This approach makes the solution more flexible and reliable.
 
 ### C1 — Does the tool description matter?
 
+The tool descriptions explain which data the model should retrieve, how to handle corrections, and when to use arithmetic.
+
+A detailed description may help the model select the correct fields and avoid archived data.
+
+To measure the effect, the same question must be tested with detailed and vague tool descriptions while keeping the other settings unchanged.
+
 | Question | Calls (your description) | Calls (vague) | Answer (yours) | Answer (vague) |
 |---|---:|---:|---|---|
-| | | | | |
+| Q-09 | To verify | Not tested | Millbrook, 0.6 residents/km² | Not tested |
+
+The vague-description experiment has not yet been completed, so I cannot claim a measured improvement.
 
 ### C2 — Three mistakes explained
 
+**Mistake 1 — Missing data in S3 (Q-08, Run 1)**
+
+S3 could not calculate the household water cost because the original `lookup` tool did not expose the water tariff.
+
+The tariff was available in document NR-15, but the tool could not retrieve it.
+
+I improved the tool by adding the `water_tariff_2025` field.
+
+This shows that a model can fail when the tool does not provide all necessary information.
+
+**Mistake 2 — Unit conversion error in S3 (Q-08, Run 2)**
+
+S3 reported a difference of 72,456.15 million tenge.
+
+The correct result was 72.46 million tenge.
+
+Correct calculation:
+
+(3315 - 2806) × 1000 × 142.35 = 72,456,150 tenge
+
+72,456,150 / 1,000,000 = 72.45615 million tenge
+
+S3's reported result was 1,000 times too large.
+
+This error shows the importance of checking measurement units.
+
+**Mistake 3 — Incorrect quantity and scale in S3 (Q-17)**
+
+In the first run, S3 calculated a difference in water volume instead of money.
+
+In the second run, it reported approximately 884,457.16 tenge per resident.
+
+The correct difference was approximately 884.46 tenge per resident, rounded to 884.
+
+This demonstrates that retrieving the correct data is not enough. The model must also use the correct formula and units.
+
+**Additional errors:**
+
+In Q-15, S1 and S3 reported 17.6 instead of 17.61 in Run 1.
+
+In Run 2, S1 corrected this error, but S3 repeated it.
+
+S1 also made a numerical reporting error in Q-05 of Run 2.
+
 ### C3 — Which strategy I would use, and what would change it
+
+I would choose **S1 Direct** for this small dataset because it offers a good balance between accuracy, speed, and cost.
+
+S1 achieved 95% accuracy and required only 4.55 seconds per question on average.
+
+S2 achieved the highest accuracy at 100%, but it was much slower and used approximately five times more tokens.
+
+S3 used the fewest tokens but achieved only 85% accuracy and made serious unit-conversion errors.
+
+I would choose **S2 Voting** when accuracy is the most important requirement and higher time and cost are acceptable.
+
+I would consider **S3 Tools** for larger datasets where retrieving specific information is necessary. However, I would first improve unit validation, tool descriptions, and answer formatting.
 
 ### C4 — How sure I can be
 
+My conclusions are based on 20 questions and two runs per strategy.
+
+The results show how the strategies performed on this particular dataset, but they do not guarantee the same performance on other tasks.
+
+S2 achieved 100% accuracy in both runs, but voting does not always guarantee a correct answer.
+
+S3 showed that tools can help retrieve information, but incorrect unit conversion can still produce wrong results.
+
+There are also limitations in the experiment:
+
+- The dataset is small.
+- The questions use similar numerical operations.
+- Some answers were evaluated manually.
+- The S3 tool interface changed between the two runs.
+- The API costs are estimates rather than verified billing charges.
+
+For a more reliable comparison, I would test more questions, repeat each strategy more times, use consistent tool definitions, and save complete tool-call logs.
+
 ### Final questions
 
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
+The original template contains eight numbered placeholders without question text. These questions must be added from the original assignment before submission.
+
+1. [Original question 1 needed]
+2. [Original question 2 needed]
+3. [Original question 3 needed]
+4. [Original question 4 needed]
+5. [Original question 5 needed]
+6. [Original question 6 needed]
+7. [Original question 7 needed]
+8. [Original question 8 needed]
