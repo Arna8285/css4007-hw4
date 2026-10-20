@@ -319,7 +319,7 @@ All 14 tests passed successfully. The tests verify correct lookup results, data 
 
 ### B3 — The loop
 
-**Round limit:** I set a maximum of 20 interaction rounds for the S3 tool-assisted strategy using `for step in range(20)`. This prevents infinite loops and excessive API calls. If the model does not produce a final answer within 20 rounds, the loop stops.
+**Round limit:** I set a maximum of 20 interaction rounds for the S3 tool-assisted strategy using `for step in range(20)`. This prevents infinite loops and excessive API calls.If the model does not produce a final answer within 20 rounds, the loop stops and returns `ERROR: Tool calling limit reached`. This error indicates that the question was not answered within the allowed number of rounds.
 
 **Where the logs are:** All experimental results are saved in the `outputs/` folder. The logs contain question IDs, answers, token usage, execution time, and tool-call arguments and results.
 
