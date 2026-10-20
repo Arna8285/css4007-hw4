@@ -1,0 +1,162 @@
+[
+    {
+        "question_id": "Q-01",
+        "question": "Which district has the higher population density in 2025, Ossbridge or Ossford, and by how many residents per square kilometre?",
+        "answer": "**Ossbridge** has the higher 2025 population density.\n\n- Ossbridge: \\(52,904 \\div 1,284.6 = 41.18\\) residents/km²  \n- Ossford: \\(30,982 \\div 846.2 = 36.61\\) residents/km²  \n\n**Difference: 4.57 residents per square kilometre.**",
+        "time_seconds": 3.84,
+        "input_tokens": 2243,
+        "output_tokens": 260
+    },
+    {
+        "question_id": "Q-02",
+        "question": "Between the 2020 and 2025 censuses, which district grew faster in percentage terms, Tarnvale or Harrowfield, and by how many percentage points?",
+        "answer": "**Harrowfield** grew faster.\n\n- Tarnvale: \\((71,388 - 67,214) / 67,214 \\times 100 = 6.21\\%\\)\n- Harrowfield: \\((90,212 - 83,609) / 83,609 \\times 100 = 7.90\\%\\)\n\n**Difference: 1.69 percentage points**, in favor of Harrowfield.",
+        "time_seconds": 4.65,
+        "input_tokens": 2249,
+        "output_tokens": 356
+    },
+    {
+        "question_id": "Q-03",
+        "question": "In 2025, which district's households used more water per resident per day, Lindenmoor or Kelmarsh, and by how many litres per resident per day?",
+        "answer": "**Lindenmoor** households used more water per resident per day.\n\n- Lindenmoor: \\(2{,}151{,}400{,}000 \\div 29{,}051 \\div 365 \\approx 202.89\\) litres/resident/day  \n- Kelmarsh: \\(1{,}739{,}000{,}000 \\div 24{,}117 \\div 365 \\approx 197.55\\) litres/resident/day  \n\n**Difference: \\(202.89 - 197.55 = 5.34\\) litres per resident per day.**",
+        "time_seconds": 6.18,
+        "input_tokens": 2249,
+        "output_tokens": 559
+    },
+    {
+        "question_id": "Q-04",
+        "question": "Which district has more pupils per school in 2025/26, Ashgrove or Millbrook, and by how many pupils per school?",
+        "answer": "Millbrook has more pupils per school.\n\n- Ashgrove: 8,837 ÷ 24 = **368.21 pupils per school**\n- Millbrook: 5,562 ÷ 15 = **370.80 pupils per school**\n\n**Difference: 2.59 pupils per school**, in favor of Millbrook.",
+        "time_seconds": 2.58,
+        "input_tokens": 2244,
+        "output_tokens": 144
+    },
+    {
+        "question_id": "Q-05",
+        "question": "Which district had the larger 2025 budget per resident, Stonecairn or Coldharbour, and by how many tenge per resident?",
+        "answer": "Coldharbour had the larger 2025 budget per resident.\n\n- Stonecairn: 2,884.6 million tenge ÷ 14,926 = **193,260.08 tenge per resident**\n- Coldharbour: 2,366.9 million tenge ÷ 11,407 = **207,495.40 tenge per resident**\n\n**Difference: 4,235.31 tenge per resident**, in favour of Coldharbour.",
+        "time_seconds": 7.63,
+        "input_tokens": 2245,
+        "output_tokens": 667
+    },
+    {
+        "question_id": "Q-06",
+        "question": "Is the combined 2025 population of Redfen and Kelmarsh larger than the 2025 population of Ossford, and by how many residents do they differ?",
+        "answer": "Yes. Redfen and Kelmarsh’s combined 2025 population was **45,051 residents**, compared with **30,982 residents** in Ossford.\n\nThey differed by **14,069 residents**, with Redfen and Kelmarsh having the larger population.",
+        "time_seconds": 2.23,
+        "input_tokens": 2249,
+        "output_tokens": 93
+    },
+    {
+        "question_id": "Q-07",
+        "question": "Which district has more paved road per 1,000 residents in 2025, Coldharbour or Stonecairn, and by how many km per 1,000 residents?",
+        "answer": "**Coldharbour** has more paved road per 1,000 residents.\n\n- Coldharbour: \\(598.3 \\div 11,407 \\times 1,000 = 52.45\\) km per 1,000 residents  \n- Stonecairn: \\(506.8 \\div 14,926 \\times 1,000 = 33.95\\) km per 1,000 residents  \n\n**Difference: 18.50 km per 1,000 residents.**",
+        "time_seconds": 3.37,
+        "input_tokens": 2253,
+        "output_tokens": 249
+    },
+    {
+        "question_id": "Q-08",
+        "question": "At the 2025 household water tariff, whose households paid more for water in 2025, Brightwater's or Millbrook's, and by how many million tenge?",
+        "answer": "Brightwater’s households paid more.\n\n- Brightwater: \\(3{,}315\\) ML × \\(1{,}000\\) m³/ML × 142.35 tenge/m³ = **471.89025 million tenge**\n- Millbrook: \\(2{,}806\\) ML × \\(1{,}000\\) m³/ML × 142.35 tenge/m³ = **399.43410 million tenge**\n\n**Difference: 72.45615 million tenge** (about **72.46 million tenge**).",
+        "time_seconds": 4.01,
+        "input_tokens": 2251,
+        "output_tokens": 347
+    },
+    {
+        "question_id": "Q-09",
+        "question": "Which district has the higher population density in 2025, Brightwater or Millbrook, and by how many residents per square kilometre?",
+        "answer": "Millbrook has the higher 2025 population density.\n\n- **Brightwater:** 44,675 ÷ 921.4 = **48.49 residents/km²**\n- **Millbrook:** 37,203 ÷ 758.6 = **49.04 residents/km²**\n\n**Difference: 0.56 residents per square kilometre**, higher in Millbrook.",
+        "time_seconds": 3.97,
+        "input_tokens": 2243,
+        "output_tokens": 287
+    },
+    {
+        "question_id": "Q-10",
+        "question": "Which district is older, Stonecairn or Coldharbour, and how many years older is it than the other?",
+        "answer": "Stonecairn is older. It was founded in 1837, compared with Coldharbour in 1845, making Stonecairn **8 years older**.",
+        "time_seconds": 1.67,
+        "input_tokens": 2240,
+        "output_tokens": 71
+    },
+    {
+        "question_id": "Q-11",
+        "question": "Of Redfen, Ashgrove and Millbrook, which district has the fewest pupils per school in 2025/26, and how many pupils per school separate the highest of the three from the lowest?",
+        "answer": "Redfen has the fewest pupils per school, with **314.7 pupils per school**.\n\nMillbrook has the highest at **370.8 pupils per school**, so the difference is:\n\n**370.8 − 314.7 = 56.1 pupils per school**.",
+        "time_seconds": 2.77,
+        "input_tokens": 2258,
+        "output_tokens": 140
+    },
+    {
+        "question_id": "Q-12",
+        "question": "Which district's 2025 budget works out higher per school pupil, Harrowfield or Tarnvale, and by how many thousand tenge per pupil?",
+        "answer": "**Tarnvale** has the higher 2025 budget per school pupil.\n\n- Harrowfield: \\(16,021.7\\text{ million} \\div 13,904 = 1,152.3\\) thousand tenge per pupil  \n- Tarnvale: \\(12,960.3\\text{ million} \\div 10,652 = 1,216.7\\) thousand tenge per pupil  \n\n**Difference: 64.4 thousand tenge per pupil**, higher in Tarnvale.",
+        "time_seconds": 6.11,
+        "input_tokens": 2246,
+        "output_tokens": 459
+    },
+    {
+        "question_id": "Q-13",
+        "question": "Ossford, Stonecairn and Coldharbour all lost population between the 2020 and 2025 censuses. Which lost the largest percentage, and what was that percentage?",
+        "answer": "**Coldharbour** lost the largest percentage of its population:\n\n- Population loss: **11,902 − 11,407 = 495 residents**\n- Percentage loss: **495 ÷ 11,902 × 100 = 4.16%**\n\nSo, Coldharbour’s population fell by **4.16%**.",
+        "time_seconds": 3.72,
+        "input_tokens": 2254,
+        "output_tokens": 281
+    },
+    {
+        "question_id": "Q-14",
+        "question": "In 2025, which district's households used more water per resident per day, Tarnvale or Ashgrove, and by how many litres per resident per day?",
+        "answer": "**Ashgrove** households used more water per resident per day.\n\n- Tarnvale: \\(5{,}207\\) ML ÷ 71,388 residents ÷ 365 = **199.83 litres per resident per day**\n- Ashgrove: \\(4{,}390\\) ML ÷ 58,760 residents ÷ 365 = **204.69 litres per resident per day**\n\n**Difference: 4.85 litres per resident per day**, higher in Ashgrove.",
+        "time_seconds": 4.97,
+        "input_tokens": 2249,
+        "output_tokens": 454
+    },
+    {
+        "question_id": "Q-15",
+        "question": "Which district has more pupils per school in 2025/26, Kelmarsh or Redfen, and by how many pupils per school?",
+        "answer": "Redfen has more pupils per school.\n\n- **Kelmarsh:** 3,268 ÷ 11 = **297.09 pupils per school**\n- **Redfen:** 3,147 ÷ 10 = **314.70 pupils per school**\n\n**Difference: 17.61 pupils per school**.",
+        "time_seconds": 2.55,
+        "input_tokens": 2244,
+        "output_tokens": 151
+    },
+    {
+        "question_id": "Q-16",
+        "question": "Is the combined area of Ossbridge and Ossford larger than the area of Tarnvale, and by how many square kilometres do they differ?",
+        "answer": "Yes. Ossbridge and Ossford have a combined area of **2,130.8 km²**, compared with Tarnvale’s **2,106.9 km²**.\n\nThey differ by **23.9 km²**, with Ossbridge and Ossford combined being larger.",
+        "time_seconds": 2.31,
+        "input_tokens": 2243,
+        "output_tokens": 105
+    },
+    {
+        "question_id": "Q-17",
+        "question": "At the 2025 household water tariff, which district's households paid more for water per resident in 2025, Harrowfield or Ossbridge, and by how many tenge per resident?",
+        "answer": "Harrowfield households paid more: **884.46 tenge per resident** more than Ossbridge households.\n\n- Harrowfield: \\(7{,}146{,}000 \\text{ m}^3 \\times 142.35 \\div 90{,}212 = 11{,}275.69\\) tenge/resident  \n- Ossbridge: \\(3{,}862{,}000 \\text{ m}^3 \\times 142.35 \\div 52{,}904 = 10{,}391.23\\) tenge/resident",
+        "time_seconds": 6.04,
+        "input_tokens": 2255,
+        "output_tokens": 475
+    },
+    {
+        "question_id": "Q-18",
+        "question": "If Millbrook's population grows by the same percentage from 2025 to 2030 as it did from 2020 to 2025, will it exceed 40,000 residents in 2030? Give the projected 2030 population.",
+        "answer": "Millbrook’s population grew from 34,590 to 37,203 between 2020 and 2025:\n\n- Growth: \\(2,613\\) residents, or about **7.55%**\n- Projected 2030 population: \\(37,203 \\times 1.0755 \\approx 40,013\\) residents\n\n**Yes.** The projected 2030 population is **approximately 40,013 residents**, exceeding 40,000 by **about 13 residents**.",
+        "time_seconds": 6.18,
+        "input_tokens": 2266,
+        "output_tokens": 367
+    },
+    {
+        "question_id": "Q-19",
+        "question": "Which district has the denser paved road network, Lindenmoor or Redfen, and by how many km of road per square kilometre?",
+        "answer": "**Lindenmoor** has the denser paved road network.\n\n- Lindenmoor: \\(402.3 \\div 1,015.7 \\approx 0.396\\) km/km²  \n- Redfen: \\(244.6 \\div 677.1 \\approx 0.361\\) km/km²  \n\n**Difference: approximately 0.035 km of road per square kilometre.**",
+        "time_seconds": 3.13,
+        "input_tokens": 2243,
+        "output_tokens": 213
+    },
+    {
+        "question_id": "Q-20",
+        "question": "Of Ossbridge, Ashgrove and Harrowfield, which district had the largest 2025 budget per resident, and by how many tenge per resident did it exceed the lowest of the three?",
+        "answer": "Ashgrove had the largest 2025 budget per resident.\n\n- **Ashgrove:** 178,490.47 tenge per resident  \n- **Ossbridge:** 175,497.13 tenge per resident  \n\nAshgrove exceeded the lowest of the three, Ossbridge, by **2,993.34 tenge per resident**.",
+        "time_seconds": 6.82,
+        "input_tokens": 2256,
+        "output_tokens": 682
+    }
+]

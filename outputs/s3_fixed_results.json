@@ -1,0 +1,172 @@
+[
+  {
+    "question_id": "Q-08",
+    "question": "At the 2025 household water tariff, whose households paid more for water in 2025, Brightwater's or Millbrook's, and by how many million tenge?",
+    "answer": "Brightwater’s households paid more, by **72,456.15 million tenge**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 44675.0,
+          "unit": "residents",
+          "source": "NR-05"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 3315.0,
+          "unit": "megalitres",
+          "source": "NR-05"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 37203.0,
+          "unit": "residents",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 2806.0,
+          "unit": "megalitres",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(3315-2806)*1000000*142.35/1000000"
+        },
+        "result": {
+          "result": 72456.15
+        }
+      }
+    ],
+    "time_seconds": 4.98,
+    "input_tokens": 1655,
+    "output_tokens": 181
+  },
+  {
+    "question_id": "Q-17",
+    "question": "At the 2025 household water tariff, which district's households paid more for water per resident in 2025, Harrowfield or Ossbridge, and by how many tenge per resident?",
+    "answer": "**Harrowfield** households paid more: approximately **884.46 tenge per resident** more than Ossbridge in 2025.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 7146.0,
+          "unit": "megalitres",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 90212.0,
+          "unit": "residents",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 3862.0,
+          "unit": "megalitres",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 52904.0,
+          "unit": "residents",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(7146*1000/90212-3862*1000/52904)*142.35"
+        },
+        "result": {
+          "result": 884.4571621968767
+        }
+      }
+    ],
+    "time_seconds": 5.52,
+    "input_tokens": 1782,
+    "output_tokens": 223
+  }
+]

@@ -1,0 +1,1678 @@
+[
+  {
+    "question_id": "Q-01",
+    "question": "Which district has the higher population density in 2025, Ossbridge or Ossford, and by how many residents per square kilometre?",
+    "answer": "Ossbridge has the higher 2025 population density:\n\n- **Ossbridge:** 41.18 residents/km²  \n- **Ossford:** 36.61 residents/km²  \n- **Difference:** **4.57 residents/km²**",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 52904.0,
+          "unit": "residents",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 1284.6,
+          "unit": "km2",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossford",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 30982.0,
+          "unit": "residents",
+          "source": "NR-02"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossford",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 846.2,
+          "unit": "km2",
+          "source": "NR-02"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "52904/1284.6"
+        },
+        "result": {
+          "result": 41.183247703565314
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "30982/846.2"
+        },
+        "result": {
+          "result": 36.613093831245564
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(52904/1284.6)-(30982/846.2)"
+        },
+        "result": {
+          "result": 4.57015387231975
+        }
+      }
+    ],
+    "time_seconds": 6.05,
+    "input_tokens": 2288,
+    "output_tokens": 249
+  },
+  {
+    "question_id": "Q-02",
+    "question": "Between the 2020 and 2025 censuses, which district grew faster in percentage terms, Tarnvale or Harrowfield, and by how many percentage points?",
+    "answer": "Harrowfield grew faster.\n\n- **Tarnvale:** 6.21% growth  \n- **Harrowfield:** 7.90% growth  \n- **Difference:** **1.69 percentage points** in favor of Harrowfield.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "population_2020"
+        },
+        "result": {
+          "value": 67214.0,
+          "unit": "residents",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 71388.0,
+          "unit": "residents",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "population_2020"
+        },
+        "result": {
+          "value": 83609.0,
+          "unit": "residents",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 90212.0,
+          "unit": "residents",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(71388-67214)/67214*100"
+        },
+        "result": {
+          "result": 6.210015770523998
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(90212-83609)/83609*100"
+        },
+        "result": {
+          "result": 7.8974751521965345
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "7.8974751521965345-6.210015770523998"
+        },
+        "result": {
+          "result": 1.6874593816725367
+        }
+      }
+    ],
+    "time_seconds": 5.95,
+    "input_tokens": 2336,
+    "output_tokens": 256
+  },
+  {
+    "question_id": "Q-03",
+    "question": "In 2025, which district's households used more water per resident per day, Lindenmoor or Kelmarsh, and by how many litres per resident per day?",
+    "answer": "Lindenmoor households used more water: **about 5.3 litres per resident per day more** than Kelmarsh.\n\n- Lindenmoor: **202.9 L/resident/day**\n- Kelmarsh: **197.6 L/resident/day**",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Lindenmoor",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 2151.4,
+          "unit": "megalitres",
+          "source": "NR-08"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Lindenmoor",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 29051.0,
+          "unit": "residents",
+          "source": "NR-08"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Kelmarsh",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 1739.0,
+          "unit": "megalitres",
+          "source": "NR-04"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Kelmarsh",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 24117.0,
+          "unit": "residents",
+          "source": "NR-04"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "2151.4*1000000/(29051*365)"
+        },
+        "result": {
+          "result": 202.89306995774555
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "1739.0*1000000/(24117*365)"
+        },
+        "result": {
+          "result": 197.55291129260834
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "202.89306995774555-197.55291129260834"
+        },
+        "result": {
+          "result": 5.34015866513721
+        }
+      }
+    ],
+    "time_seconds": 7.25,
+    "input_tokens": 2356,
+    "output_tokens": 264
+  },
+  {
+    "question_id": "Q-04",
+    "question": "Which district has more pupils per school in 2025/26, Ashgrove or Millbrook, and by how many pupils per school?",
+    "answer": "**Millbrook** has more pupils per school:\n\n- Ashgrove: 8837 ÷ 24 = **368.21 pupils per school**\n- Millbrook: 5562 ÷ 15 = **370.80 pupils per school**\n\nDifference: **2.59 pupils per school**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 8837.0,
+          "unit": "pupils",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "schools"
+        },
+        "result": {
+          "value": 24.0,
+          "unit": "schools",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 5562.0,
+          "unit": "pupils",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "schools"
+        },
+        "result": {
+          "value": 15.0,
+          "unit": "schools",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "8837/24"
+        },
+        "result": {
+          "result": 368.2083333333333
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "5562/15"
+        },
+        "result": {
+          "result": 370.8
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "370.8-(8837/24)"
+        },
+        "result": {
+          "result": 2.591666666666697
+        }
+      }
+    ],
+    "time_seconds": 5.91,
+    "input_tokens": 2234,
+    "output_tokens": 237
+  },
+  {
+    "question_id": "Q-05",
+    "question": "Which district had the larger 2025 budget per resident, Stonecairn or Coldharbour, and by how many tenge per resident?",
+    "answer": "Coldharbour had the larger 2025 budget per resident by **14,235.31 tenge per resident**.\n\n- Stonecairn: **193,260.08 tenge/resident**\n- Coldharbour: **207,495.40 tenge/resident**",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 2884.6,
+          "unit": "million tenge",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 14926.0,
+          "unit": "residents",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 2366.9,
+          "unit": "million tenge",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 11407.0,
+          "unit": "residents",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "2884.6*1000000/14926"
+        },
+        "result": {
+          "result": 193260.08307651078
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "2366.9*1000000/11407"
+        },
+        "result": {
+          "result": 207495.39756289998
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "207495.39756289998-193260.08307651078"
+        },
+        "result": {
+          "result": 14235.314486389194
+        }
+      }
+    ],
+    "time_seconds": 6.58,
+    "input_tokens": 2328,
+    "output_tokens": 265
+  },
+  {
+    "question_id": "Q-06",
+    "question": "Is the combined 2025 population of Redfen and Kelmarsh larger than the 2025 population of Ossford, and by how many residents do they differ?",
+    "answer": "Yes. Redfen and Kelmarsh’s combined 2025 population is **45,051 residents**, compared with **30,982 residents** in Ossford. They differ by **14,069 residents**, with the combined population being larger.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 20934.0,
+          "unit": "residents",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Kelmarsh",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 24117.0,
+          "unit": "residents",
+          "source": "NR-04"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossford",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 30982.0,
+          "unit": "residents",
+          "source": "NR-02"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "20934+24117"
+        },
+        "result": {
+          "result": 45051
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "45051-30982"
+        },
+        "result": {
+          "result": 14069
+        }
+      }
+    ],
+    "time_seconds": 5.78,
+    "input_tokens": 2044,
+    "output_tokens": 176
+  },
+  {
+    "question_id": "Q-07",
+    "question": "Which district has more paved road per 1,000 residents in 2025, Coldharbour or Stonecairn, and by how many km per 1,000 residents?",
+    "answer": "Coldharbour has more paved road per 1,000 residents:\n\n- **Coldharbour:** 52.45 km per 1,000 residents  \n- **Stonecairn:** 33.95 km per 1,000 residents  \n\n**Difference: 18.50 km per 1,000 residents.**",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "roads_km"
+        },
+        "result": {
+          "value": 598.3,
+          "unit": "km",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 11407.0,
+          "unit": "residents",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "roads_km"
+        },
+        "result": {
+          "value": 506.8,
+          "unit": "km",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 14926.0,
+          "unit": "residents",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "598.3 / 11407 * 1000"
+        },
+        "result": {
+          "result": 52.45024984658542
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "506.8 / 14926 * 1000"
+        },
+        "result": {
+          "result": 33.95417392469516
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "52.45024984658542 - 33.95417392469516"
+        },
+        "result": {
+          "result": 18.49607592189026
+        }
+      }
+    ],
+    "time_seconds": 6.27,
+    "input_tokens": 2337,
+    "output_tokens": 273
+  },
+  {
+    "question_id": "Q-08",
+    "question": "At the 2025 household water tariff, whose households paid more for water in 2025, Brightwater's or Millbrook's, and by how many million tenge?",
+    "answer": "Brightwater’s households paid more, by **72,456.15 million tenge**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 44675.0,
+          "unit": "residents",
+          "source": "NR-05"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 37203.0,
+          "unit": "residents",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 3315.0,
+          "unit": "megalitres",
+          "source": "NR-05"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 2806.0,
+          "unit": "megalitres",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(3315-2806)*1000000*142.35/1000000"
+        },
+        "result": {
+          "result": 72456.15
+        }
+      }
+    ],
+    "time_seconds": 4.81,
+    "input_tokens": 1751,
+    "output_tokens": 204
+  },
+  {
+    "question_id": "Q-09",
+    "question": "Which district has the higher population density in 2025, Brightwater or Millbrook, and by how many residents per square kilometre?",
+    "answer": "Millbrook has the higher 2025 population density by **0.56 residents per square kilometre**.\n\n- Brightwater: **48.49 residents/km²**\n- Millbrook: **49.04 residents/km²**",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 44675.0,
+          "unit": "residents",
+          "source": "NR-05"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Brightwater",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 921.4,
+          "unit": "km2",
+          "source": "NR-16"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 37203.0,
+          "unit": "residents",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 758.6,
+          "unit": "km2",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "44675/921.4"
+        },
+        "result": {
+          "result": 48.48599956587801
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "37203/758.6"
+        },
+        "result": {
+          "result": 49.041655681518584
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "49.041655681518584-48.48599956587801"
+        },
+        "result": {
+          "result": 0.5556561156405735
+        }
+      }
+    ],
+    "time_seconds": 6.35,
+    "input_tokens": 2271,
+    "output_tokens": 237
+  },
+  {
+    "question_id": "Q-10",
+    "question": "Which district is older, Stonecairn or Coldharbour, and how many years older is it than the other?",
+    "answer": "Stonecairn is older. It was founded **8 years** before Coldharbour.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "founded_year"
+        },
+        "result": {
+          "value": 1837.0,
+          "unit": "year",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "founded_year"
+        },
+        "result": {
+          "value": 1845.0,
+          "unit": "year",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "1845-1837"
+        },
+        "result": {
+          "result": 8
+        }
+      }
+    ],
+    "time_seconds": 3.8,
+    "input_tokens": 1320,
+    "output_tokens": 104
+  },
+  {
+    "question_id": "Q-11",
+    "question": "Of Redfen, Ashgrove and Millbrook, which district has the fewest pupils per school in 2025/26, and how many pupils per school separate the highest of the three from the lowest?",
+    "answer": "**Redfen** has the fewest pupils per school, with **314.7 pupils per school**.\n\nThe highest is Millbrook at **370.8 pupils per school**, so the difference between the highest and lowest is **56.1 pupils per school**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 3147.0,
+          "unit": "pupils",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "schools"
+        },
+        "result": {
+          "value": 10.0,
+          "unit": "schools",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 8837.0,
+          "unit": "pupils",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "schools"
+        },
+        "result": {
+          "value": 24.0,
+          "unit": "schools",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 5562.0,
+          "unit": "pupils",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "schools"
+        },
+        "result": {
+          "value": 15.0,
+          "unit": "schools",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "3147/10"
+        },
+        "result": {
+          "result": 314.7
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "8837/24"
+        },
+        "result": {
+          "result": 368.2083333333333
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "5562/15"
+        },
+        "result": {
+          "result": 370.8
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "370.8-314.7"
+        },
+        "result": {
+          "result": 56.10000000000002
+        }
+      }
+    ],
+    "time_seconds": 7.67,
+    "input_tokens": 2591,
+    "output_tokens": 281
+  },
+  {
+    "question_id": "Q-12",
+    "question": "Which district's 2025 budget works out higher per school pupil, Harrowfield or Tarnvale, and by how many thousand tenge per pupil?",
+    "answer": "**Tarnvale** has the higher 2025 budget per school pupil, by **64.4 thousand tenge per pupil**.\n\n- Harrowfield: 1,152.3 thousand tenge per pupil  \n- Tarnvale: 1,216.7 thousand tenge per pupil",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 16021.7,
+          "unit": "million tenge",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 13904.0,
+          "unit": "pupils",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 12960.3,
+          "unit": "million tenge",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 10652.0,
+          "unit": "pupils",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "16021.7*1000/13904"
+        },
+        "result": {
+          "result": 1152.3086881472957
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "12960.3*1000/10652"
+        },
+        "result": {
+          "result": 1216.7010889973715
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "1216.7010889973715-1152.3086881472957"
+        },
+        "result": {
+          "result": 64.39240085007577
+        }
+      }
+    ],
+    "time_seconds": 6.27,
+    "input_tokens": 2328,
+    "output_tokens": 263
+  },
+  {
+    "question_id": "Q-13",
+    "question": "Ossford, Stonecairn and Coldharbour all lost population between the 2020 and 2025 censuses. Which lost the largest percentage, and what was that percentage?",
+    "answer": "Coldharbour lost the largest percentage: **approximately 4.16%** of its population (from 11,902 to 11,407 residents).",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossford",
+          "field": "population_2020"
+        },
+        "result": {
+          "value": 31560.0,
+          "unit": "residents",
+          "source": "NR-02"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossford",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 30982.0,
+          "unit": "residents",
+          "source": "NR-02"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "population_2020"
+        },
+        "result": {
+          "value": 15473.0,
+          "unit": "residents",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Stonecairn",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 14926.0,
+          "unit": "residents",
+          "source": "NR-06"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "population_2020"
+        },
+        "result": {
+          "value": 11902.0,
+          "unit": "residents",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Coldharbour",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 11407.0,
+          "unit": "residents",
+          "source": "NR-12"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(31560-30982)/31560*100"
+        },
+        "result": {
+          "result": 1.8314321926489228
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(15473-14926)/15473*100"
+        },
+        "result": {
+          "result": 3.535190331545272
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(11902-11407)/11902*100"
+        },
+        "result": {
+          "result": 4.1589648798521255
+        }
+      }
+    ],
+    "time_seconds": 5.2,
+    "input_tokens": 1844,
+    "output_tokens": 276
+  },
+  {
+    "question_id": "Q-14",
+    "question": "In 2025, which district's households used more water per resident per day, Tarnvale or Ashgrove, and by how many litres per resident per day?",
+    "answer": "Ashgrove households used more water: **about 204.7 litres per resident per day**, compared with Tarnvale’s **199.8 litres**.\n\n**Difference: 4.9 litres per resident per day.**",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 5207.0,
+          "unit": "megalitres",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 71388.0,
+          "unit": "residents",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 4390.0,
+          "unit": "megalitres",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 58760.0,
+          "unit": "residents",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "5207*1000000/(71388*365)"
+        },
+        "result": {
+          "result": 199.8340536877001
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "4390*1000000/(58760*365)"
+        },
+        "result": {
+          "result": 204.68681518505738
+        }
+      }
+    ],
+    "time_seconds": 4.86,
+    "input_tokens": 1614,
+    "output_tokens": 223
+  },
+  {
+    "question_id": "Q-15",
+    "question": "Which district has more pupils per school in 2025/26, Kelmarsh or Redfen, and by how many pupils per school?",
+    "answer": "Redfen has more pupils per school.\n\n- **Kelmarsh:** 3268 ÷ 11 = **297.1 pupils per school**\n- **Redfen:** 3147 ÷ 10 = **314.7 pupils per school**\n\n**Difference:** Redfen has **17.6 more pupils per school**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Kelmarsh",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 3268.0,
+          "unit": "pupils",
+          "source": "NR-04"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Kelmarsh",
+          "field": "schools"
+        },
+        "result": {
+          "value": 11.0,
+          "unit": "schools",
+          "source": "NR-04"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "pupils"
+        },
+        "result": {
+          "value": 3147.0,
+          "unit": "pupils",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "schools"
+        },
+        "result": {
+          "value": 10.0,
+          "unit": "schools",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "3268/11"
+        },
+        "result": {
+          "result": 297.09090909090907
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "3147/10"
+        },
+        "result": {
+          "result": 314.7
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "314.7-(3268/11)"
+        },
+        "result": {
+          "result": 17.609090909090924
+        }
+      }
+    ],
+    "time_seconds": 6.2,
+    "input_tokens": 2234,
+    "output_tokens": 242
+  },
+  {
+    "question_id": "Q-16",
+    "question": "Is the combined area of Ossbridge and Ossford larger than the area of Tarnvale, and by how many square kilometres do they differ?",
+    "answer": "Yes. Ossbridge and Ossford have a combined area of **2,130.8 km²**, which is **23.9 km² larger** than Tarnvale’s **2,106.9 km²**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 1284.6,
+          "unit": "km2",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossford",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 846.2,
+          "unit": "km2",
+          "source": "NR-02"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Tarnvale",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 2106.9,
+          "unit": "km2",
+          "source": "NR-03"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(1284.6 + 846.2) - 2106.9"
+        },
+        "result": {
+          "result": 23.90000000000009
+        }
+      }
+    ],
+    "time_seconds": 4.19,
+    "input_tokens": 1443,
+    "output_tokens": 165
+  },
+  {
+    "question_id": "Q-17",
+    "question": "At the 2025 household water tariff, which district's households paid more for water per resident in 2025, Harrowfield or Ossbridge, and by how many tenge per resident?",
+    "answer": "Harrowfield households paid more: **approximately 884,457.16 tenge per resident** more than Ossbridge in 2025.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 7146.0,
+          "unit": "megalitres",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 90212.0,
+          "unit": "residents",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "water_2025"
+        },
+        "result": {
+          "value": 3862.0,
+          "unit": "megalitres",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 52904.0,
+          "unit": "residents",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "water_tariff_2025"
+        },
+        "result": {
+          "value": 142.35,
+          "unit": "tenge/m3",
+          "source": "NR-15"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "7146*1000000/90212*142.35"
+        },
+        "result": {
+          "result": 11276028.687979426
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "3862*1000000/52904*142.35"
+        },
+        "result": {
+          "result": 10391571.52578255
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "11276028.687979426-10391571.52578255"
+        },
+        "result": {
+          "result": 884457.1621968765
+        }
+      }
+    ],
+    "time_seconds": 6.2,
+    "input_tokens": 2670,
+    "output_tokens": 286
+  },
+  {
+    "question_id": "Q-18",
+    "question": "If Millbrook's population grows by the same percentage from 2025 to 2030 as it did from 2020 to 2025, will it exceed 40,000 residents in 2030? Give the projected 2030 population.",
+    "answer": "Millbrook’s population grew by approximately **7.55%** from 2020 to 2025.\n\nProjected 2030 population: **40,013 residents** (approximately)\n\n**Yes**, it would exceed 40,000 residents.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "population_2020"
+        },
+        "result": {
+          "value": 34590.0,
+          "unit": "residents",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Millbrook",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 37203.0,
+          "unit": "residents",
+          "source": "NR-11"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "37203*(37203/34590)"
+        },
+        "result": {
+          "result": 40013.391413703386
+        }
+      }
+    ],
+    "time_seconds": 4.52,
+    "input_tokens": 1410,
+    "output_tokens": 137
+  },
+  {
+    "question_id": "Q-19",
+    "question": "Which district has the denser paved road network, Lindenmoor or Redfen, and by how many km of road per square kilometre?",
+    "answer": "Lindenmoor has the denser paved road network:\n\n- **Lindenmoor:** 0.396 km of road per km²  \n- **Redfen:** 0.361 km of road per km²  \n- **Difference:** **0.035 km/km²** (approximately)",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Lindenmoor",
+          "field": "roads_km"
+        },
+        "result": {
+          "value": 402.3,
+          "unit": "km",
+          "source": "NR-08"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Lindenmoor",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 1015.7,
+          "unit": "km2",
+          "source": "NR-08"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "roads_km"
+        },
+        "result": {
+          "value": 244.6,
+          "unit": "km",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Redfen",
+          "field": "area_km2"
+        },
+        "result": {
+          "value": 677.1,
+          "unit": "km2",
+          "source": "NR-09"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "402.3/1015.7"
+        },
+        "result": {
+          "result": 0.3960815201338978
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "244.6/677.1"
+        },
+        "result": {
+          "result": 0.36124649239403334
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "(402.3/1015.7)-(244.6/677.1)"
+        },
+        "result": {
+          "result": 0.034835027739864466
+        }
+      }
+    ],
+    "time_seconds": 6.18,
+    "input_tokens": 2275,
+    "output_tokens": 256
+  },
+  {
+    "question_id": "Q-20",
+    "question": "Of Ossbridge, Ashgrove and Harrowfield, which district had the largest 2025 budget per resident, and by how many tenge per resident did it exceed the lowest of the three?",
+    "answer": "**Ashgrove** had the largest 2025 budget per resident, at approximately **178,490.47 tenge per resident**.\n\nIt exceeded the lowest—**Ossbridge**, at approximately **175,497.13 tenge per resident**—by **2,993.34 tenge per resident**.",
+    "tool_calls": [
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 9284.5,
+          "unit": "million tenge",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ossbridge",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 52904.0,
+          "unit": "residents",
+          "source": "NR-01"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 10488.1,
+          "unit": "million tenge",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Ashgrove",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 58760.0,
+          "unit": "residents",
+          "source": "NR-10"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "budget_2025"
+        },
+        "result": {
+          "value": 16021.7,
+          "unit": "million tenge",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "lookup",
+        "arguments": {
+          "district": "Harrowfield",
+          "field": "population_2025"
+        },
+        "result": {
+          "value": 90212.0,
+          "unit": "residents",
+          "source": "NR-07"
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "9284.5*1000000/52904"
+        },
+        "result": {
+          "result": 175497.12687131407
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "10488.1*1000000/58760"
+        },
+        "result": {
+          "result": 178490.46970728386
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "16021.7*1000000/90212"
+        },
+        "result": {
+          "result": 177600.54094798918
+        }
+      },
+      {
+        "tool": "calculate",
+        "arguments": {
+          "expression": "178490.46970728386-175497.12687131407"
+        },
+        "result": {
+          "result": 2993.3428359697864
+        }
+      }
+    ],
+    "time_seconds": 6.15,
+    "input_tokens": 2716,
+    "output_tokens": 338
+  }
+]
